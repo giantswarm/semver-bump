@@ -1,6 +1,9 @@
 package commands
 
 import (
+	"fmt"
+	"log"
+
 	"github.com/giantswarm/semver-bump/storage"
 	"github.com/spf13/cobra"
 )
@@ -14,7 +17,13 @@ var SemverBumpCommand = &cobra.Command{
 	Short: "Semantic Versioning Bumper",
 	Long:  `A semantic versioning file bumper built by giantswarm`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// Do Stuff Here
+		currentVersion, err := versionStorage.ReadVersionFile(versionFile)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Current bumped version is: %s", currentVersion)
 	},
 }
 
