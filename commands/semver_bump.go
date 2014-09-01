@@ -39,6 +39,8 @@ func Execute(v string, storage storage.VersionStorage) {
 
 func AddCommands() {
 	SemverBumpCommand.AddCommand(bumpMajorCommand)
+	SemverBumpCommand.AddCommand(bumpMinorCommand)
+	SemverBumpCommand.AddCommand(bumpPatchCommand)
 	SemverBumpCommand.AddCommand(versionCommand)
 }
 
