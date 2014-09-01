@@ -16,7 +16,7 @@ VERSION := $(shell cat VERSION)
 
 all: .gobuild get-deps $(BIN)
 
-get-deps:
+get-deps: .gobuild
 	GOPATH=$(GOPATH) go get github.com/coreos/go-semver
 	GOPATH=$(GOPATH) go get github.com/spf13/cobra
 
