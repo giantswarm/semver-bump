@@ -25,7 +25,7 @@ get-deps:
 	cd "$(D0_PATH)" && ln -s ../../../.. $(PROJECT)
 
 $(BIN): $(SOURCE)
-	GOPATH=$(GOPATH) go build -a -ldflags "-X main.version $(VERSION)" -o $(BIN)
+	GOPATH=$(GOPATH) go build -a -ldflags "-X main.projectVersion $(VERSION)" -o $(BIN)
 
 clean:
 	rm -rf $(BUILD_PATH) $(BIN)

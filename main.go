@@ -5,7 +5,9 @@ import (
 	"github.com/giantswarm/semver-bump/storage"
 )
 
+var projectVersion string = "dev"
+
 func main() {
 	storageFactory := storage.VersionStorageFactory{StorageType: "file", DefaultVersion: "0.0.2"}
-	commands.Execute(storageFactory.GetVersionStorage())
+	commands.Execute(projectVersion, storageFactory.GetVersionStorage())
 }

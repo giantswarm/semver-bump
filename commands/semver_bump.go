@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var projectVersion string
 var versionFile string
 var versionStorage storage.VersionStorage
 
@@ -17,8 +18,9 @@ var SemverBumpCommand = &cobra.Command{
 	},
 }
 
-func Execute(storage storage.VersionStorage) {
+func Execute(v string, storage storage.VersionStorage) {
 	versionStorage = storage
+	projectVersion = v
 
 	AddGlobalFlags()
 	AddCommands()
@@ -28,6 +30,7 @@ func Execute(storage storage.VersionStorage) {
 
 func AddCommands() {
 	SemverBumpCommand.AddCommand(bumpMajorCommand)
+	SemverBumpCommand.AddCommand(versionCommand)
 }
 
 func AddGlobalFlags() {
