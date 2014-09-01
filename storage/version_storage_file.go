@@ -17,7 +17,7 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 		return nil, fmt.Errorf("File '%s' could not be openend", file)
 	}
 
-	versionBuffer = bytes.Trim(versionBuffer, "\n")
+	versionBuffer = bytes.TrimSpace(versionBuffer)
 
 	version, err := semver.NewVersion(string(versionBuffer))
 
