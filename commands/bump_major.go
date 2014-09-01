@@ -22,6 +22,12 @@ var bumpMajorCommand = &cobra.Command{
 
 		bumpedVersion.BumpMajor()
 
+		err = versionStorage.WriteVersionFile(bumpedVersion, versionFile)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		fmt.Printf("Bumped major version from %s to %s", currentVersion.String(), bumpedVersion.String())
 	},
 }

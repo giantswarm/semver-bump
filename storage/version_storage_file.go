@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"github.com/coreos/go-semver/semver"
 )
@@ -28,6 +29,6 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 	return version, nil
 }
 
-func (s VersionStorageFile) WriteVersionFile(version *semver.Version, file string) error {
-	return nil
+func (s VersionStorageFile) WriteVersionFile(version semver.Version, file string) error {
+	return ioutil.WriteFile(file, []byte(version.String()), os.ModeExclusive)
 }
