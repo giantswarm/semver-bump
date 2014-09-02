@@ -24,3 +24,15 @@ following subcommands:
  * `semver-bump major-release`
  * `semver-bump minor-release`
  * `semver-bump patch-release`
+
+### Initializing an existing project
+
+If you are already working on a project using semantic versioning you can
+initialize the version file with the default version 0.1.0:
+
+    semver-bump init
+
+Using the `-i` flag you can also initialize the version file with your current
+version:
+
+    semver-bump init -i 1.2.1
