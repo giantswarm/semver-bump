@@ -19,6 +19,10 @@ func (s VersionStorageLocal) WriteVersionFile(file string, version semver.Versio
 	return nil
 }
 
+func (s VersionStorageLocal) VersionFileExists(file string) bool {
+	return true
+}
+
 func NewVersionStorageLocal(versionString string) (*VersionStorageLocal, error) {
 	version, err := semver.NewVersion(versionString)
 

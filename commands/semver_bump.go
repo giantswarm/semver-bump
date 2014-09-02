@@ -46,6 +46,7 @@ func AddCommands() {
 	SemverBumpCommand.AddCommand(bumpMajorCommand)
 	SemverBumpCommand.AddCommand(bumpMinorCommand)
 	SemverBumpCommand.AddCommand(bumpPatchCommand)
+	SemverBumpCommand.AddCommand(initCommand)
 	SemverBumpCommand.AddCommand(versionCommand)
 }
 
@@ -53,4 +54,6 @@ func AddGlobalFlags() {
 	SemverBumpCommand.PersistentFlags().StringVarP(&versionFile, "version-file", "f", "VERSION", "Version file to use")
 	SemverBumpCommand.PersistentFlags().StringVarP(&versionStorageType, "storage-type", "s", "file", "Storage backend to use for version information")
 	SemverBumpCommand.PersistentFlags().StringVarP(&versionStorageLocalDefaultVersion, "storage-local-default-version", "V", "0.0.1", "Default version to use when using the local storage backend")
+
+	initCommand.Flags().StringVarP(&initialVersionString, "initial-version", "i", "0.1.0", "The initial version of the project")
 }
