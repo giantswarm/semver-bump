@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"log"
+
 	"github.com/coreos/go-semver/semver"
 	"github.com/spf13/cobra"
 )
@@ -10,8 +12,13 @@ var bumpMajorCommand = &cobra.Command{
 	Short: "Bump a major release",
 	Long:  `Increments the major version and bumps it.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		readModifyWriteVersionFile(versionStorage, func(version *semver.Version) {
+		err := readModifyWriteVersionFile(versionStorage, func(version *semver.Version) {
 			version.BumpMajor()
 		})
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 	},
 }
