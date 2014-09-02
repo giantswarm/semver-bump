@@ -1,9 +1,8 @@
 package storage
 
 import (
-	"log"
-
 	"github.com/coreos/go-semver/semver"
+	"github.com/juju/errgo/errors"
 )
 
 type VersionStorageLocal struct {
@@ -20,12 +19,12 @@ func (s VersionStorageLocal) WriteVersionFile(file string, version semver.Versio
 	return nil
 }
 
-func NewVersionStorageLocal(versionString string) *VersionStorageLocal {
+func NewVersionStorageLocal(versionString string) (*VersionStorageLocal, error) {
 	version, err := semver.NewVersion(versionString)
 
 	if err != nil {
-		log.Fatalf("Version string '%s' could not be processed.", versionString)
+		return nil, errors.Mask(err)
 	}
 
-	return &VersionStorageLocal{version: version}
+	return &VersionStorageLocal{version: version}, nil
 }

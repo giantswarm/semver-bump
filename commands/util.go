@@ -31,12 +31,12 @@ func readModifyWriteVersionFile(versionStorage storage.VersionStorage, bumpCallb
 	return nil
 }
 
-func getVersionStorage() storage.VersionStorage {
+func getVersionStorage() (storage.VersionStorage, error) {
 	switch versionStorageType {
 	case "local":
 		return storage.NewVersionStorageLocal(versionStorageLocalDefaultVersion)
 	case "file":
-		return &storage.VersionStorageFile{}
+		return &storage.VersionStorageFile{}, nil
 	default:
 		panic("Unknown storage backend: " + versionStorageType)
 	}

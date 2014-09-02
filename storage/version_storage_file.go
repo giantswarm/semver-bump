@@ -2,11 +2,11 @@ package storage
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"os"
 
 	"github.com/coreos/go-semver/semver"
+	"github.com/juju/errgo/errors"
 )
 
 type VersionStorageFile struct{}
@@ -15,7 +15,7 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 	versionBuffer, err := ioutil.ReadFile(file)
 
 	if err != nil {
-		return nil, fmt.Errorf("File '%s' could not be openend", file)
+		return nil, errors.Mask(err)
 	}
 
 	versionBuffer = bytes.TrimSpace(versionBuffer)
@@ -23,7 +23,7 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 	version, err := semver.NewVersion(string(versionBuffer))
 
 	if err != nil {
-		return nil, fmt.Errorf("Version string in file '%s' could not pe processed with error: %s", file, err)
+		return nil, errors.Mask(err)
 	}
 
 	return version, nil
