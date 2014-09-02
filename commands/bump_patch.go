@@ -12,7 +12,7 @@ var bumpPatchCommand = &cobra.Command{
 	Short: "Bump a patch release",
 	Long:  `Increments the patch version and bumps it.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := readModifyWriteVersionFile(versionStorage, func(version *semver.Version) {
+		err := readModifyWriteVersionFile(getVersionStorage(), func(version *semver.Version) {
 			version.BumpPatch()
 		})
 

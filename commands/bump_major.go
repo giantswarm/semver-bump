@@ -12,7 +12,7 @@ var bumpMajorCommand = &cobra.Command{
 	Short: "Bump a major release",
 	Long:  `Increments the major version and bumps it.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := readModifyWriteVersionFile(versionStorage, func(version *semver.Version) {
+		err := readModifyWriteVersionFile(getVersionStorage(), func(version *semver.Version) {
 			version.BumpMajor()
 		})
 

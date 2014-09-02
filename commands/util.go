@@ -9,7 +9,7 @@ import (
 
 type versionBumpCallback func(version *semver.Version)
 
-func readModifyWriteVersionFile(storage storage.VersionStorage, bumpCallback versionBumpCallback) error {
+func readModifyWriteVersionFile(versionStorage storage.VersionStorage, bumpCallback versionBumpCallback) error {
 	currentVersion, err := versionStorage.ReadVersionFile(versionFile)
 
 	if err != nil {
@@ -29,4 +29,15 @@ func readModifyWriteVersionFile(storage storage.VersionStorage, bumpCallback ver
 	fmt.Println(fmt.Sprintf("Bumped version from %s to %s", currentVersion.String(), bumpedVersion.String()))
 
 	return nil
+}
+
+func getVersionStorage() storage.VersionStorage {
+	switch versionStorageType {
+	case "local":
+		return storage.NewVersionStorageLocal(versionStorageLocalDefaultVersion)
+	case "file":
+		return &storage.VersionStorageFile{}
+	default:
+		panic("Unknown storage backend: " + versionStorageType)
+	}
 }

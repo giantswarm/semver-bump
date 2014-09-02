@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/giantswarm/semver-bump/storage"
 	"github.com/spf13/cobra"
 )
 
 var projectVersion string
 var versionFile string
-var versionStorage storage.VersionStorage
+var versionStorageType string = "file"
+var versionStorageLocalDefaultVersion string
 
 var SemverBumpCommand = &cobra.Command{
 	Use:   "semver-bump",
 	Short: "Semantic Versioning Bumper",
 	Long:  `A semantic versioning file bumper built by giantswarm`,
 	Run: func(cmd *cobra.Command, args []string) {
-		currentVersion, err := versionStorage.ReadVersionFile(versionFile)
+		currentVersion, err := getVersionStorage().ReadVersionFile(versionFile)
 
 		if err != nil {
 			log.Fatal(err)
@@ -27,8 +27,7 @@ var SemverBumpCommand = &cobra.Command{
 	},
 }
 
-func Execute(v string, storage storage.VersionStorage) {
-	versionStorage = storage
+func Execute(v string) {
 	projectVersion = v
 
 	AddGlobalFlags()
@@ -46,4 +45,6 @@ func AddCommands() {
 
 func AddGlobalFlags() {
 	SemverBumpCommand.PersistentFlags().StringVarP(&versionFile, "version-file", "f", "VERSION", "Version file to use")
+	SemverBumpCommand.PersistentFlags().StringVarP(&versionStorageType, "storage-type", "s", "file", "Storage backend to use for version information")
+	SemverBumpCommand.PersistentFlags().StringVarP(&versionStorageLocalDefaultVersion, "storage-local-default-version", "V", "0.0.1", "Default version to use when using the local storage backend")
 }
