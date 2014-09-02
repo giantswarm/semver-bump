@@ -29,7 +29,7 @@ var SemverBumpCommand = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		fmt.Printf("Current bumped version is: %s", currentVersion)
+		fmt.Printf("Current version is: %s", currentVersion)
 	},
 }
 
