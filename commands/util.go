@@ -20,7 +20,7 @@ func readModifyWriteVersionFile(storage storage.VersionStorage, bumpCallback ver
 
 	bumpCallback(&bumpedVersion)
 
-	err = versionStorage.WriteVersionFile(bumpedVersion, versionFile)
+	err = versionStorage.WriteVersionFile(versionFile, bumpedVersion)
 
 	if err != nil {
 		return err

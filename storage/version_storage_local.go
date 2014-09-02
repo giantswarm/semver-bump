@@ -14,7 +14,7 @@ func (s VersionStorageLocal) ReadVersionFile(file string) (*semver.Version, erro
 	return s.version, nil
 }
 
-func (s VersionStorageLocal) WriteVersionFile(version semver.Version, file string) error {
+func (s VersionStorageLocal) WriteVersionFile(file string, version semver.Version) error {
 	s.version = &version
 
 	return nil
