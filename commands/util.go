@@ -5,6 +5,7 @@ import (
 
 	"github.com/coreos/go-semver/semver"
 	"github.com/giantswarm/semver-bump/storage"
+	"github.com/juju/errgo/errors"
 )
 
 type versionBumpCallback func(version *semver.Version)
@@ -13,7 +14,7 @@ func readModifyWriteVersionFile(versionStorage storage.VersionStorage, bumpCallb
 	currentVersion, err := versionStorage.ReadVersionFile(versionFile)
 
 	if err != nil {
-		return err
+		return errors.Mask(err)
 	}
 
 	bumpedVersion := *currentVersion
@@ -23,7 +24,7 @@ func readModifyWriteVersionFile(versionStorage storage.VersionStorage, bumpCallb
 	err = versionStorage.WriteVersionFile(versionFile, bumpedVersion)
 
 	if err != nil {
-		return err
+		return errors.Mask(err)
 	}
 
 	fmt.Println(fmt.Sprintf("Bumped version from %s to %s", currentVersion.String(), bumpedVersion.String()))

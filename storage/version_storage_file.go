@@ -30,5 +30,5 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 }
 
 func (s VersionStorageFile) WriteVersionFile(file string, version semver.Version) error {
-	return ioutil.WriteFile(file, []byte(version.String()), os.ModeExclusive)
+	return errors.Mask(ioutil.WriteFile(file, []byte(version.String()), os.ModeExclusive))
 }
