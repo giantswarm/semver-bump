@@ -33,6 +33,6 @@ var initCommand = &cobra.Command{
 
 		s.WriteVersionFile(versionFile, *initialVersion)
 
-		fmt.Println(fmt.Sprintf("Bumped initial version to %s", initialVersion.String()))
+		fmt.Printf("Bumped initial version to %s\n", initialVersion.String())
 	},
 }

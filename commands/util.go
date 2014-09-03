@@ -27,7 +27,7 @@ func readModifyWriteVersionFile(versionStorage storage.VersionStorage, bumpCallb
 		return errors.Mask(err)
 	}
 
-	fmt.Println(fmt.Sprintf("Bumped version from %s to %s", currentVersion.String(), bumpedVersion.String()))
+	fmt.Printf("Bumped version from %s to %s\n", currentVersion.String(), bumpedVersion.String())
 
 	return nil
 }
