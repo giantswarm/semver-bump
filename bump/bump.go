@@ -13,6 +13,10 @@ type SemverBumper struct {
 	versionFile string
 }
 
+func NewSemverBumper(vs storage.VersionStorage, versionFile string) *SemverBumper {
+	return &SemverBumper{vs, versionFile}
+}
+
 func (sb SemverBumper) BumpMajorVersion() (*semver.Version, error) {
 	v, err := sb.updateVersionFile(func(version *semver.Version) {
 		version.BumpMajor()
@@ -91,8 +95,4 @@ func (sb SemverBumper) updateVersionFile(bumpCallback versionBumpCallback) (*sem
 	}
 
 	return &bumpedVersion, nil
-}
-
-func NewSemverBumper(vs storage.VersionStorage, versionFile string) *SemverBumper {
-	return &SemverBumper{vs, versionFile}
 }
