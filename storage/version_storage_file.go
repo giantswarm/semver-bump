@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"bytes"
 	"io/ioutil"
 	"os"
 
@@ -17,8 +18,8 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 		return nil, errors.Mask(err)
 	}
 
-	v := extractVersionNumber(string(versionBuffer))
-	version, err := semver.NewVersion(v)
+	versionBuffer = bytes.TrimSpace(versionBuffer)
+	version, err := semver.NewVersion(string(versionBuffer))
 
 	if err != nil {
 		return nil, errors.Mask(err)

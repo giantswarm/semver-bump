@@ -17,10 +17,10 @@ func NewSemverBumper(vs storage.VersionStorage, versionFile string) *SemverBumpe
 	return &SemverBumper{vs, versionFile}
 }
 
-func (sb SemverBumper) BumpMajorVersion() (*semver.Version, error) {
+func (sb SemverBumper) BumpMajorVersion(preRelease string, metadata string) (*semver.Version, error) {
 	v, err := sb.updateVersionFile(func(version *semver.Version) {
 		version.BumpMajor()
-	})
+	}, preRelease, metadata)
 
 	if err != nil {
 		return nil, errors.Mask(err)
@@ -29,10 +29,10 @@ func (sb SemverBumper) BumpMajorVersion() (*semver.Version, error) {
 	return v, nil
 }
 
-func (sb SemverBumper) BumpMinorVersion() (*semver.Version, error) {
+func (sb SemverBumper) BumpMinorVersion(preRelease string, metadata string) (*semver.Version, error) {
 	v, err := sb.updateVersionFile(func(version *semver.Version) {
 		version.BumpMinor()
-	})
+	}, preRelease, metadata)
 
 	if err != nil {
 		return nil, errors.Mask(err)
@@ -41,10 +41,10 @@ func (sb SemverBumper) BumpMinorVersion() (*semver.Version, error) {
 	return v, nil
 }
 
-func (sb SemverBumper) BumpPatchVersion() (*semver.Version, error) {
+func (sb SemverBumper) BumpPatchVersion(preRelease string, metadata string) (*semver.Version, error) {
 	v, err := sb.updateVersionFile(func(version *semver.Version) {
 		version.BumpPatch()
-	})
+	}, preRelease, metadata)
 
 	if err != nil {
 		return nil, errors.Mask(err)
@@ -77,7 +77,7 @@ func (sb SemverBumper) InitVersion(initialVersion semver.Version) error {
 	return nil
 }
 
-func (sb SemverBumper) updateVersionFile(bumpCallback versionBumpCallback) (*semver.Version, error) {
+func (sb SemverBumper) updateVersionFile(bumpCallback versionBumpCallback, preRelease string, metadata string) (*semver.Version, error) {
 	currentVersion, err := sb.GetCurrentVersion()
 
 	if err != nil {
@@ -87,6 +87,9 @@ func (sb SemverBumper) updateVersionFile(bumpCallback versionBumpCallback) (*sem
 	bumpedVersion := *currentVersion
 
 	bumpCallback(&bumpedVersion)
+
+	bumpedVersion.PreRelease = semver.PreRelease(preRelease)
+	bumpedVersion.Metadata = metadata
 
 	err = sb.storage.WriteVersionFile(sb.versionFile, bumpedVersion)
 

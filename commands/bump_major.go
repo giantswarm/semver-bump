@@ -18,7 +18,7 @@ var bumpMajorCommand = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		v, err := sb.BumpMajorVersion()
+		v, err := sb.BumpMajorVersion(versionPreReleaseSuffix, versionMetadataSuffix)
 
 		if err != nil {
 			log.Fatal(err)

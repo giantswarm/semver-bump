@@ -18,7 +18,7 @@ var bumpMinorCommand = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		v, err := sb.BumpMinorVersion()
+		v, err := sb.BumpMinorVersion(versionPreReleaseSuffix, versionMetadataSuffix)
 
 		if err != nil {
 			log.Fatal(err)
