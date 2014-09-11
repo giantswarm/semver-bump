@@ -23,7 +23,7 @@ var SemverBumpCommand = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		currentVersion, err := sb.GetCurrentBumpedVersion()
+		currentVersion, err := sb.GetCurrentVersion()
 
 		if err != nil {
 			log.Fatal(err)

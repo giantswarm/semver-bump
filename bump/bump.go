@@ -53,7 +53,7 @@ func (sb SemverBumper) BumpPatchVersion() (*semver.Version, error) {
 	return v, nil
 }
 
-func (sb SemverBumper) GetCurrentBumpedVersion() (*semver.Version, error) {
+func (sb SemverBumper) GetCurrentVersion() (*semver.Version, error) {
 	currentVersion, err := sb.storage.ReadVersionFile(sb.versionFile)
 
 	if err != nil {
@@ -78,7 +78,7 @@ func (sb SemverBumper) InitVersion(initialVersion *semver.Version) error {
 }
 
 func (sb SemverBumper) updateVersionFile(bumpCallback versionBumpCallback) (*semver.Version, error) {
-	currentVersion, err := sb.GetCurrentBumpedVersion()
+	currentVersion, err := sb.GetCurrentVersion()
 
 	if err != nil {
 		return nil, errors.Mask(err)
