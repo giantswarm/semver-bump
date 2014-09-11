@@ -26,5 +26,8 @@ get-deps: .gobuild
 $(BIN): $(SOURCE)
 	GOPATH=$(GOPATH) go build -a -ldflags "-X main.projectVersion $(VERSION)" -o $(BIN)
 
+install: $(BIN)
+	cp $(BIN) /usr/local/bin/
+
 clean:
 	rm -rf $(BUILD_PATH) $(BIN)
