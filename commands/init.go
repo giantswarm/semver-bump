@@ -15,23 +15,19 @@ var initCommand = &cobra.Command{
 	Short: "Initalize version number",
 	Long:  `Initalize the version number for the project either from 0.1.0 or a custom one.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s, err := getVersionStorage()
+		sb, err := getSemverBumper()
 
 		if err != nil {
 			log.Fatal(err)
-		}
-
-		if s.VersionFileExists(versionFile) {
-			log.Fatal("version file already exists.")
 		}
 
 		initialVersion, err := semver.NewVersion(initialVersionString)
 
+		err = sb.InitVersion(*initialVersion)
+
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		s.WriteVersionFile(versionFile, *initialVersion)
 
 		fmt.Printf("Bumped initial version to %s\n", initialVersion.String())
 	},
