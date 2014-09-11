@@ -23,7 +23,7 @@ var initCommand = &cobra.Command{
 
 		initialVersion, err := semver.NewVersion(initialVersionString)
 
-		err = sb.InitVersion(initialVersion)
+		err = sb.InitVersion(*initialVersion)
 
 		if err != nil {
 			log.Fatal(err)

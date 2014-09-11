@@ -63,12 +63,12 @@ func (sb SemverBumper) GetCurrentVersion() (*semver.Version, error) {
 	return currentVersion, nil
 }
 
-func (sb SemverBumper) InitVersion(initialVersion *semver.Version) error {
+func (sb SemverBumper) InitVersion(initialVersion semver.Version) error {
 	if sb.storage.VersionFileExists(sb.versionFile) {
 		return errors.Newf("Version file exists. Looks like this project is already initialized.")
 	}
 
-	err := sb.storage.WriteVersionFile(sb.versionFile, *initialVersion)
+	err := sb.storage.WriteVersionFile(sb.versionFile, initialVersion)
 
 	if err != nil {
 		errors.Mask(err)
