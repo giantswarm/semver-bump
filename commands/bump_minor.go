@@ -1,9 +1,9 @@
 package commands
 
 import (
+	"fmt"
 	"log"
 
-	"github.com/coreos/go-semver/semver"
 	"github.com/spf13/cobra"
 )
 
@@ -12,18 +12,18 @@ var bumpMinorCommand = &cobra.Command{
 	Short: "Bump a minor release",
 	Long:  `Increments the minor version and bumps it.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s, err := getVersionStorage()
+		sb, err := getSemverBumper()
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = readModifyWriteVersionFile(s, func(version *semver.Version) {
-			version.BumpMinor()
-		})
+		v, err := sb.BumpMinorVersion()
 
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		fmt.Printf("Bumped to minor version %s\n", v.String())
 	},
 }

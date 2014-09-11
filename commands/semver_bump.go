@@ -17,13 +17,13 @@ var SemverBumpCommand = &cobra.Command{
 	Short: "Semantic Versioning Bumper",
 	Long:  `A semantic versioning file bumper built by giantswarm`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s, err := getVersionStorage()
+		sb, err := getSemverBumper()
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		currentVersion, err := s.ReadVersionFile(versionFile)
+		currentVersion, err := sb.GetCurrentBumpedVersion()
 
 		if err != nil {
 			log.Fatal(err)
