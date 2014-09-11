@@ -11,6 +11,8 @@ var projectVersion string
 var versionFile string
 var versionStorageType string = "file"
 var versionStorageLocalDefaultVersion string
+var versionPreReleaseSuffix string
+var versionMetadataSuffix string
 
 var SemverBumpCommand = &cobra.Command{
 	Use:   "semver-bump",
@@ -56,4 +58,13 @@ func AddGlobalFlags() {
 	SemverBumpCommand.PersistentFlags().StringVarP(&versionStorageLocalDefaultVersion, "storage-local-default-version", "V", "0.0.1", "Default version to use when using the local storage backend")
 
 	initCommand.Flags().StringVarP(&initialVersionString, "initial-version", "i", "0.1.0", "The initial version of the project")
+
+	bumpMajorCommand.Flags().StringVarP(&versionPreReleaseSuffix, "pre-release-suffix", "p", "", "The pre release suffix for the bumped version")
+	bumpMajorCommand.Flags().StringVarP(&versionMetadataSuffix, "metadata-suffix", "m", "", "The metadata suffix for the bumped version")
+
+	bumpMinorCommand.Flags().StringVarP(&versionPreReleaseSuffix, "pre-release-suffix", "p", "", "The pre release suffix for the bumped version")
+	bumpMinorCommand.Flags().StringVarP(&versionMetadataSuffix, "metadata-suffix", "m", "", "The metadata suffix for the bumped version")
+
+	bumpPatchCommand.Flags().StringVarP(&versionPreReleaseSuffix, "pre-release-suffix", "p", "", "The pre release suffix for the bumped version")
+	bumpPatchCommand.Flags().StringVarP(&versionMetadataSuffix, "metadata-suffix", "m", "", "The metadata suffix for the bumped version")
 }

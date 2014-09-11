@@ -18,7 +18,7 @@ var bumpPatchCommand = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		v, err := sb.BumpPatchVersion()
+		v, err := sb.BumpPatchVersion(versionPreReleaseSuffix, versionMetadataSuffix)
 
 		if err != nil {
 			log.Fatal(err)
