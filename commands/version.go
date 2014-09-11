@@ -11,6 +11,6 @@ var versionCommand = &cobra.Command{
 	Short: "Print the version number of semver-bump",
 	Long:  `Print the version number of semver-bump.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Semantic Versioning Bumper v%s\n", projectVersion)
+		fmt.Printf("Semantic Versioning Bumper %s\n", projectVersion)
 	},
 }
