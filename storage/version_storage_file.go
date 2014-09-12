@@ -1,9 +1,9 @@
 package storage
 
 import (
-	"bytes"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/coreos/go-semver/semver"
 	"github.com/juju/errgo/errors"
@@ -18,8 +18,11 @@ func (s VersionStorageFile) ReadVersionFile(file string) (*semver.Version, error
 		return nil, errors.Mask(err)
 	}
 
-	versionBuffer = bytes.TrimSpace(versionBuffer)
-	version, err := semver.NewVersion(string(versionBuffer))
+	versionString := string(versionBuffer)
+	versionString = strings.TrimSpace(versionString)
+	versionString = filterVersionNumber(versionString)
+
+	version, err := semver.NewVersion(versionString)
 
 	if err != nil {
 		return nil, errors.Mask(err)

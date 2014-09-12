@@ -24,7 +24,7 @@ func (s VersionStorageLocal) VersionFileExists(file string) bool {
 }
 
 func NewVersionStorageLocal(versionString string) (*VersionStorageLocal, error) {
-	version, err := semver.NewVersion(versionString)
+	version, err := semver.NewVersion(filterVersionNumber(versionString))
 
 	if err != nil {
 		return nil, errors.Mask(err)
