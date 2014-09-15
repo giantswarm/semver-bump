@@ -64,7 +64,7 @@ func TestLocalWriteVersionFile(t *testing.T) {
 }
 
 func TestLocalVersionFileExists(t *testing.T) {
-	v, err := semver.NewVersion("1.1.1")
+	v, err := semver.NewVersion("0.0.0")
 
 	if err != nil {
 		t.Fatalf("TestLocalVersionFileExists: %s", err)
@@ -72,7 +72,19 @@ func TestLocalVersionFileExists(t *testing.T) {
 
 	s := VersionStorageLocal{v}
 
+	if s.VersionFileExists("testfile") {
+		t.Fatalf("TestLocalVersionFileExists: Expected VersionStorageLocal to pretend no version file exists on version 0.0.0")
+	}
+
+	v, err = semver.NewVersion("1.1.1")
+
+	if err != nil {
+		t.Fatalf("TestLocalVersionFileExists: %s", err)
+	}
+
+	s = VersionStorageLocal{v}
+
 	if !s.VersionFileExists("testfile") {
-		t.Fatalf("TestLocalVersionFileExists: Expected VersionStorageLocal to always pretend a version file exists")
+		t.Fatalf("TestLocalVersionFileExists: Expected VersionStorageLocal to pretend a version file exists on real versions")
 	}
 }

@@ -3,6 +3,7 @@ package bump
 import (
 	"testing"
 
+	"github.com/coreos/go-semver/semver"
 	"github.com/giantswarm/semver-bump/storage"
 )
 
@@ -76,5 +77,39 @@ func TestGetCurrentVersion(t *testing.T) {
 
 	if expectedVersion != v.String() {
 		t.Fatalf("GetCurrentVersion: Epexcted to receive version %s but got %s", expectedVersion, v.String())
+	}
+}
+
+func TestInitVersion(t *testing.T) {
+	expectedVersion, err := semver.NewVersion("1.2.45")
+
+	if err != nil {
+		t.Fatalf("InitVersion: %s", err)
+	}
+
+	sb := NewTestSemverBumper(t, "1.1.0")
+
+	err = sb.InitVersion(*expectedVersion)
+
+	if err == nil {
+		t.Fatalf("InitVersion: Expected SemverBumper to return an error when trying to initialize over an existing version")
+	}
+
+	sb = NewTestSemverBumper(t, "0.0.0")
+
+	err = sb.InitVersion(*expectedVersion)
+
+	if err != nil {
+		t.Fatalf("InitVersion: Expected SemverBumper to initialize new version %s but got error: %s", expectedVersion, err)
+	}
+
+	v, err := sb.GetCurrentVersion()
+
+	if err != nil {
+		t.Fatalf("InitVersion: %s", err)
+	}
+
+	if expectedVersion.String() != v.String() {
+		t.Fatalf("InitVersion: Expected SemverBumper to initialize version %s but got %s", expectedVersion.String(), v.String())
 	}
 }

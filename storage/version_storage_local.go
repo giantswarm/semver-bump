@@ -13,13 +13,17 @@ func (s VersionStorageLocal) ReadVersionFile(file string) (*semver.Version, erro
 	return s.version, nil
 }
 
-func (s VersionStorageLocal) WriteVersionFile(file string, version semver.Version) error {
+func (s *VersionStorageLocal) WriteVersionFile(file string, version semver.Version) error {
 	s.version = &version
 
 	return nil
 }
 
 func (s VersionStorageLocal) VersionFileExists(file string) bool {
+	if s.version.String() == "0.0.0" {
+		return false
+	}
+
 	return true
 }
 
