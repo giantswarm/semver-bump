@@ -31,3 +31,6 @@ install: $(BIN)
 
 clean:
 	rm -rf $(BUILD_PATH) $(BIN)
+
+run-tests: .gobuild
+		GOPATH=$(GOPATH) go test ./...

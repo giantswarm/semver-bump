@@ -1,5 +1,7 @@
 # Semantic Versioning Bumper
 
+[![Build Status](https://travis-ci.org/giantswarm/semver-bump.svg?branch=master)](https://travis-ci.org/giantswarm/semver-bump)
+
 A simple semantic versioning file bumper to keep your version files in line
 built by [Giant Swarm](http://giantswarm.io).
 
