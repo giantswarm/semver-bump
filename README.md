@@ -38,3 +38,10 @@ Using the `-i` flag you can also initialize the version file with your current
 version:
 
     semver-bump init -i 1.2.1
+
+## Commands autocompletion
+Put the following line into your `.bashrc` or whatever initial script you have 
+in your system. Relaunch your terminal and now write `semver-bump <TAB><TAB>` to
+see all avalable commands.
+
+    complete -W "$( semver-bump -h | grep Available -A6 | tail -n6 | awk '{ print $1}' | xargs )" semver-bump
